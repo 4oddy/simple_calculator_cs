@@ -5,6 +5,9 @@ namespace Calculator
     public partial class Calculator : Form
     {
         public char[] operation_symb = new char[] { '+', '-', '÷', '×' };
+
+        DataTable dt = new DataTable();
+
         public Calculator()
         {
             MaximizeBox = false;
@@ -68,9 +71,16 @@ namespace Calculator
         }
         private object CalculateExpression(string expression)
         {
-            DataTable dt = new DataTable();
-            object result = dt.Compute(expression, null);
-            return result;
+            try
+            {
+                object result = dt.Compute(expression, null);
+                return result;
+            }
+            catch
+            {
+                return 0;
+            }
+            
         }
 
         private void button1_Click(object sender, EventArgs e)

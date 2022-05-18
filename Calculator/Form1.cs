@@ -43,7 +43,7 @@ namespace Calculator
                 string result = OutputResult.Text.Substring(0, OutputResult.Text.Length-1);
                 OutputResult.Text = result;
             }
-            if (OutputResult.Text.Length == 0)
+            else if (OutputResult.Text.Length == 0)
             {
                 OutputResult.Text = "0";
             }

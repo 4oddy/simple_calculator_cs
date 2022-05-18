@@ -1,4 +1,4 @@
-﻿using Microsoft.CodeAnalysis.CSharp.Scripting;
+﻿using System.Data;
 
 namespace Calculator
 {
@@ -9,8 +9,6 @@ namespace Calculator
         {
             MaximizeBox = false;
             FormBorderStyle = FormBorderStyle.Fixed3D;
-
-            CalculateExpression("0 + 0");
             
             InitializeComponent();
         }
@@ -43,7 +41,7 @@ namespace Calculator
                 string result = OutputResult.Text.Substring(0, OutputResult.Text.Length-1);
                 OutputResult.Text = result;
             }
-            else if (OutputResult.Text.Length == 0)
+            if (OutputResult.Text.Length == 0)
             {
                 OutputResult.Text = "0";
             }
@@ -64,20 +62,15 @@ namespace Calculator
         {
             string expression = OutputResult.Text.Replace('×', '*').Replace('÷', '/').Replace(',', '.');
 
-            double result = CalculateExpression(expression);
+            object result = CalculateExpression(expression);
 
             OutputResult.Text = result.ToString();
         }
-        private double CalculateExpression(string expression)
+        private object CalculateExpression(string expression)
         {
-            try
-            {
-                return CSharpScript.EvaluateAsync<double>(expression).Result;
-            }
-            catch
-            {
-                return 0.0;
-            }
+            DataTable dt = new DataTable();
+            object result = dt.Compute(expression, null);
+            return result;
         }
 
         private void button1_Click(object sender, EventArgs e)

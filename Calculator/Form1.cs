@@ -51,8 +51,7 @@ namespace Calculator
         }
         private bool IsDigit(string str)
         {
-            double num;
-            bool isDigit = double.TryParse(str, out num);
+            bool isDigit = double.TryParse(str, out _);
             return isDigit;
         }
 
